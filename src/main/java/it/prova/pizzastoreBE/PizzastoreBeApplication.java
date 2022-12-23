@@ -1,5 +1,6 @@
 package it.prova.pizzastoreBE;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import it.prova.pizzastoreBE.model.Cliente;
+import it.prova.pizzastoreBE.model.Ordine;
+import it.prova.pizzastoreBE.model.Pizza;
 import it.prova.pizzastoreBE.model.Ruolo;
 import it.prova.pizzastoreBE.model.Utente;
+import it.prova.pizzastoreBE.service.cliente.ClienteService;
+import it.prova.pizzastoreBE.service.ordine.OrdineService;
+import it.prova.pizzastoreBE.service.pizza.PizzaService;
 import it.prova.pizzastoreBE.service.ruolo.RuoloService;
 import it.prova.pizzastoreBE.service.utente.UtenteService;
 
@@ -19,6 +26,12 @@ public class PizzastoreBeApplication implements CommandLineRunner {
 	private RuoloService ruoloServiceInstance;
 	@Autowired
 	private UtenteService utenteServiceInstance;
+	@Autowired
+	private PizzaService pizzaServiceInstance;
+	@Autowired
+	private ClienteService clienteServiceInstance;
+	@Autowired
+	private OrdineService ordineServiceInstance;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PizzastoreBeApplication.class, args);
@@ -70,6 +83,26 @@ public class PizzastoreBeApplication implements CommandLineRunner {
 			utenteServiceInstance.inserisciNuovo(fattorino);
 			utenteServiceInstance.changeUserAbilitation(fattorino.getId());
 		}
+		
+		Pizza margherita = new Pizza("margherita", "pomodoro, mozzarella", 5, true);
+		Pizza crostino = new Pizza("crostino", "cotto, mozzarella", 6, true);
+		Pizza diavola = new Pizza("diavola", "pomodoro, mozzarella, salame piccante", 7, false);
+		Pizza porcini = new Pizza("porcini", "porcini, mozzarella", 8, true);
+		pizzaServiceInstance.inserisciNuovo(margherita);
+		pizzaServiceInstance.inserisciNuovo(crostino);
+		pizzaServiceInstance.inserisciNuovo(diavola);
+		pizzaServiceInstance.inserisciNuovo(porcini);
+		
+		Cliente clienteAttivo = new Cliente("Pinco", "Pallino", "via brubru 12", true);
+		Cliente clienteNonAttivo = new Cliente("Tizio", "Caio", "via brubru 12", false);
+		clienteServiceInstance.inserisciNuovo(clienteNonAttivo);
+		clienteServiceInstance.inserisciNuovo(clienteAttivo);
+		
+		Ordine ordine = new Ordine("ABC123", LocalDate.now(), 13, false, clienteAttivo);
+		ordine.getPizze().add(margherita);
+		ordine.getPizze().add(porcini);
+		ordine.setFattorino(utenteServiceInstance.findByUsername("fattorino"));
+		ordineServiceInstance.inserisciNuovo(ordine);
 	}
 
 }
