@@ -40,13 +40,6 @@ public class Utente {
 	@Column(name = "dataRegistrazione")
 	private Date dataRegistrazione;
 
-	@Column(name = "esperienzaAccumulata")
-	private Integer esperienzaAccumulata;
-
-	@Column(name = "creditoAccumulato")
-	private Integer creditoAccumulato;
-
-	// se non uso questa annotation viene gestito come un intero
 	@Enumerated(EnumType.STRING)
 	private StatoUtente stato;
 
@@ -68,20 +61,6 @@ public class Utente {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.dataRegistrazione = dataRegistrazione;
-	}
-
-	public Utente(Long id, String username, String password, String nome, String cognome, Date dataRegistrazione,
-			Integer esperienzaAccumulata, Integer creditoAccumulato, StatoUtente stato) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.nome = nome;
-		this.cognome = cognome;
-		this.dataRegistrazione = dataRegistrazione;
-		this.esperienzaAccumulata = esperienzaAccumulata;
-		this.creditoAccumulato = creditoAccumulato;
-		this.stato = stato;
 	}
 
 	public Utente(Long id, String username, String password, String nome, String cognome, Date dataRegistrazione,
@@ -153,22 +132,6 @@ public class Utente {
 
 	public void setStato(StatoUtente stato) {
 		this.stato = stato;
-	}
-
-	public Integer getEsperienzaAccumulata() {
-		return esperienzaAccumulata;
-	}
-
-	public void setEsperienzaAccumulata(Integer esperienzaAccumulata) {
-		this.esperienzaAccumulata = esperienzaAccumulata;
-	}
-
-	public Integer getCreditoAccumulato() {
-		return creditoAccumulato;
-	}
-
-	public void setCreditoAccumulato(Integer creditoAccumulato) {
-		this.creditoAccumulato = creditoAccumulato;
 	}
 
 	public boolean isAdmin() {
