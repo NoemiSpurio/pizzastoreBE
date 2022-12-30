@@ -42,11 +42,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.cors() // Enabling cors
 				.and()
 
-				.authorizeHttpRequests().antMatchers("/api/auth/login").permitAll()
+				.authorizeHttpRequests()
+				.antMatchers("/api/auth/login").permitAll()
 				// tutti gli utenti autenticati possono richiedere le info
 				.antMatchers("/api/utente/rolesInfo").authenticated()
-				.antMatchers("/api/utente/userInfo").authenticated().antMatchers("/api/utente/**").hasRole("ADMIN")
-				.antMatchers("/**").hasAnyRole("ADMIN", "CLASSIC_USER")
+				.antMatchers("/api/utente/userInfo").authenticated()
+				.antMatchers("/api/cliente/**").hasRole("ADMIN")
+                .antMatchers("/api/pizza/**").hasAnyRole("PIZZAIOLO","PROPRIETARIO")
+                .antMatchers("/api/ordine/**").hasAnyRole("PIZZAIOLO","PROPRIETARIO","FATTORINO")
+                .antMatchers("/**").hasAnyRole("ADMIN", "PIZZAIOLO","PROPRIETARIO","FATTORINO")
 				// .antMatchers("/anonymous*").anonymous()
 				.anyRequest().authenticated().and()
 
