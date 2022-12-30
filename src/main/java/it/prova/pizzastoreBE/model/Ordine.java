@@ -1,8 +1,8 @@
 package it.prova.pizzastoreBE.model;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,7 +47,7 @@ public class Ordine {
 
 	@ManyToMany
 	@JoinTable(name = "ordine_pizza", joinColumns = @JoinColumn(name = "ordine_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "pizza_id", referencedColumnName = "ID"))
-	private Set<Pizza> pizze = new HashSet<>(0);
+	private List<Pizza> pizze = new ArrayList<>(0);
 
 	public Ordine() {
 
@@ -60,6 +60,15 @@ public class Ordine {
 		this.costoTotale = costoTotale;
 		this.closed = closed;
 		this.cliente = cliente;
+	}
+
+	public Ordine(Long id, LocalDate data, String codice, Integer costoTotale, Boolean closed) {
+		super();
+		this.id = id;
+		this.codice = codice;
+		this.data = data;
+		this.costoTotale = costoTotale;
+		this.closed = closed;
 	}
 
 	public Long getId() {
@@ -118,11 +127,11 @@ public class Ordine {
 		this.cliente = cliente;
 	}
 
-	public Set<Pizza> getPizze() {
+	public List<Pizza> getPizze() {
 		return pizze;
 	}
 
-	public void setPizze(Set<Pizza> pizze) {
+	public void setPizze(List<Pizza> pizze) {
 		this.pizze = pizze;
 	}
 
