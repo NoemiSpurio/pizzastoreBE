@@ -50,7 +50,7 @@ public class OrdineController {
 		Ordine ordine = ordineService.caricaSingoloOrdine(id);
 		if (ordine == null)
 			throw new OrdineNotFoundException("Ordine not found con id: " + id);
-		return OrdineDTO.buildOrdineDTOFromModel(ordine, false, false, false);
+		return OrdineDTO.buildOrdineDTOFromModel(ordine, true, true, true);
 	}
 
 	@PutMapping("/{id}")

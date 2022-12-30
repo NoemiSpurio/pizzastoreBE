@@ -1,15 +1,17 @@
 package it.prova.pizzastoreBE.dto;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import it.prova.pizzastoreBE.model.Ordine;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrdineDTO {
 
 	private Long id;
@@ -22,7 +24,7 @@ public class OrdineDTO {
 	@NotNull(message = "{costo.notnull}")
 	private Integer costo;
 
-	private List<PizzaDTO> pizze = new ArrayList<PizzaDTO>(0);
+	private List<PizzaDTO> pizze;
 	@NotNull(message = "{cliente.notnull}")
 	private ClienteDTO cliente;
 	@NotNull(message = "{fattorino.notnull}")

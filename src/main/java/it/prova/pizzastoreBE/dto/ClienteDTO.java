@@ -5,8 +5,11 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import it.prova.pizzastoreBE.model.Cliente;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClienteDTO {
 
 	private Long id;
