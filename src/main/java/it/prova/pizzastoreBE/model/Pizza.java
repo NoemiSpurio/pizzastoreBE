@@ -40,6 +40,15 @@ public class Pizza {
 		this.attivo = attivo;
 	}
 
+	public Pizza(Long id, String descrizione, String ingredienti, Integer prezzoBase, Boolean attivo) {
+		super();
+		this.id = id;
+		this.descrizione = descrizione;
+		this.ingredienti = ingredienti;
+		this.prezzoBase = prezzoBase;
+		this.attivo = attivo;
+	}
+
 	public Long getId() {
 		return id;
 	}
