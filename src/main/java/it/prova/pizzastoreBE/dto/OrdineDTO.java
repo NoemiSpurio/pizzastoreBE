@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import it.prova.pizzastoreBE.model.Ordine;
@@ -16,6 +17,7 @@ public class OrdineDTO {
 
 	private Long id;
 
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate data;
 
 	private Boolean closed;

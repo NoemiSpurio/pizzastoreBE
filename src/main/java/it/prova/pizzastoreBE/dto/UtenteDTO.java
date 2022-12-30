@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import it.prova.pizzastoreBE.model.Ruolo;
 import it.prova.pizzastoreBE.model.StatoUtente;
 import it.prova.pizzastoreBE.model.Utente;
@@ -31,6 +33,7 @@ public class UtenteDTO {
 	@NotBlank(message = "{cognome.notblank}")
 	private String cognome;
 
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataRegistrazione;
 
 	private StatoUtente stato;
