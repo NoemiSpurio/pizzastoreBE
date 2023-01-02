@@ -103,6 +103,12 @@ public class PizzastoreBeApplication implements CommandLineRunner {
 		ordine.getPizze().add(porcini);
 		ordine.setFattorino(utenteServiceInstance.findByUsername("fattorino"));
 		ordineServiceInstance.inserisciNuovo(ordine);
+		
+		Ordine ordine2 = new Ordine("ABC123", LocalDate.now(), 13, false, clienteAttivo);
+		ordine2.getPizze().add(margherita);
+		ordine2.getPizze().add(porcini);
+		ordine2.setFattorino(utenteServiceInstance.findByUsername("fattorino"));
+		ordineServiceInstance.inserisciNuovo(ordine2);
 	}
 
 }
