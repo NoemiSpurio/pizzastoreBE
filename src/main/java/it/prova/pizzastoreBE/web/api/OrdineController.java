@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.prova.pizzastoreBE.dto.ClienteDTO;
 import it.prova.pizzastoreBE.dto.OrdineDTO;
+import it.prova.pizzastoreBE.dto.StatisticheDTO;
 import it.prova.pizzastoreBE.model.Ordine;
 import it.prova.pizzastoreBE.service.ordine.OrdineService;
 import it.prova.pizzastoreBE.web.api.exception.IdNotNullForInsertException;
@@ -76,5 +78,31 @@ public class OrdineController {
 	@PostMapping("/search")
 	public List<OrdineDTO> search(@RequestBody OrdineDTO example) {
 		return OrdineDTO.createOrdineDTOListFromModelList(ordineService.findByExample(example.buildOrdineModel()));
+	}
+	
+	@PostMapping("/ricaviTotaliTra")
+	public Integer ricaviTotaliTra(@Valid @RequestBody StatisticheDTO dateInput) {
+		return ordineService.ricaviTotaliTra(dateInput.getDataInizio(), dateInput.getDataFine());
+	}
+	
+	@PostMapping("/costiTotaliTra")
+	public Integer costiTotaliTra(@Valid @RequestBody StatisticheDTO dateInput) {
+		return ordineService.costiTotaliTra(dateInput.getDataInizio(), dateInput.getDataFine());
+	}
+
+	@PostMapping("/ordiniTotaliTra")
+	public Integer ordiniTotaliTra(@Valid @RequestBody StatisticheDTO dateInput) {
+		return ordineService.ordiniTotaliTra(dateInput.getDataInizio(), dateInput.getDataFine());
+	}
+
+	@PostMapping("/pizzeOrdinateTra")
+	public Integer pizzeOrdinateTra(@Valid @RequestBody StatisticheDTO dateInput) {
+		return ordineService.totPizzeOrdinateTra(dateInput.getDataInizio(), dateInput.getDataFine());
+	}
+
+	@PostMapping("/clientiVirtuosiTra")
+	public List<ClienteDTO> clientiVirtuosiTra(@Valid @RequestBody StatisticheDTO dateInput) {
+		return ClienteDTO.createClienteDTOListFromModelList(
+				ordineService.clientiVirtuosiTra(dateInput.getDataInizio(), dateInput.getDataFine()));
 	}
 }
