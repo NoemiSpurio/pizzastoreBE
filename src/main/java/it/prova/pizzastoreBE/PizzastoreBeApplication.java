@@ -88,10 +88,12 @@ public class PizzastoreBeApplication implements CommandLineRunner {
 		Pizza crostino = new Pizza("crostino", "cotto, mozzarella", 6, true);
 		Pizza diavola = new Pizza("diavola", "pomodoro, mozzarella, salame piccante", 7, false);
 		Pizza porcini = new Pizza("porcini", "porcini, mozzarella", 8, true);
+		Pizza ultracostosa = new Pizza("costosissima", "oro", 150, true);
 		pizzaServiceInstance.inserisciNuovo(margherita);
 		pizzaServiceInstance.inserisciNuovo(crostino);
 		pizzaServiceInstance.inserisciNuovo(diavola);
 		pizzaServiceInstance.inserisciNuovo(porcini);
+		pizzaServiceInstance.inserisciNuovo(ultracostosa);
 		
 		Cliente clienteAttivo = new Cliente("Pinco", "Pallino", "via brubru 12", true);
 		Cliente clienteNonAttivo = new Cliente("Tizio", "Caio", "via brubru 12", false);
@@ -109,6 +111,12 @@ public class PizzastoreBeApplication implements CommandLineRunner {
 		ordine2.getPizze().add(porcini);
 		ordine2.setFattorino(utenteServiceInstance.findByUsername("fattorino"));
 		ordineServiceInstance.inserisciNuovo(ordine2);
+		
+		Ordine ordine3 = new Ordine("ABC123", LocalDate.now(), 13, false, clienteAttivo);
+		ordine3.getPizze().add(ultracostosa);
+		ordine3.getPizze().add(porcini);
+		ordine3.setFattorino(utenteServiceInstance.findByUsername("fattorino"));
+		ordineServiceInstance.inserisciNuovo(ordine3);
 	}
 
 }
