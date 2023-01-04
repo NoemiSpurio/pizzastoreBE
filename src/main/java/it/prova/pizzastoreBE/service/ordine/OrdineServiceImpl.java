@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.pizzastoreBE.model.Cliente;
 import it.prova.pizzastoreBE.model.Ordine;
+import it.prova.pizzastoreBE.model.Pizza;
 import it.prova.pizzastoreBE.repository.ordine.OrdineRepository;
 
 @Service
@@ -42,6 +43,10 @@ public class OrdineServiceImpl implements OrdineService {
 	@Override
 	@Transactional
 	public void inserisciNuovo(Ordine ordineInstance) {
+		ordineInstance.setCostoTotale(0);
+		for (Pizza pizzaElement : ordineInstance.getPizze()) {
+			ordineInstance.setCostoTotale(ordineInstance.getCostoTotale() + pizzaElement.getPrezzoBase());
+		}
 		ordineInstance.setClosed(false);
 		ordineRepository.save(ordineInstance);
 	}

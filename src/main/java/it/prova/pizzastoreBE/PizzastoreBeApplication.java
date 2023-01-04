@@ -84,6 +84,16 @@ public class PizzastoreBeApplication implements CommandLineRunner {
 			utenteServiceInstance.changeUserAbilitation(fattorino.getId());
 		}
 		
+		if (utenteServiceInstance.findByUsername("super") == null) {
+			Utente superuser = new Utente("super", "super", "Miglior", "Migliorotto", new Date());
+			superuser.getRuoli().add(ruoloServiceInstance.cercaPerDescrizioneECodice("Fattorino", Ruolo.ROLE_FATTORINO));
+			superuser.getRuoli().add(ruoloServiceInstance.cercaPerDescrizioneECodice("Proprietario", Ruolo.ROLE_PROPRIETARIO));
+			superuser.getRuoli().add(ruoloServiceInstance.cercaPerDescrizioneECodice("Pizzaiolo", Ruolo.ROLE_PIZZAIOLO));
+			superuser.getRuoli().add(ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", Ruolo.ROLE_ADMIN));
+			utenteServiceInstance.inserisciNuovo(superuser);
+			utenteServiceInstance.changeUserAbilitation(superuser.getId());
+		}
+		
 		Pizza margherita = new Pizza("margherita", "pomodoro, mozzarella", 5, true);
 		Pizza crostino = new Pizza("crostino", "cotto, mozzarella", 6, true);
 		Pizza diavola = new Pizza("diavola", "pomodoro, mozzarella, salame piccante", 7, false);
@@ -106,13 +116,14 @@ public class PizzastoreBeApplication implements CommandLineRunner {
 		ordine.setFattorino(utenteServiceInstance.findByUsername("fattorino"));
 		ordineServiceInstance.inserisciNuovo(ordine);
 		
-		Ordine ordine2 = new Ordine("ABC123", LocalDate.now(), 13, false, clienteAttivo);
+		Ordine ordine2 = new Ordine("CDF543", LocalDate.now(), 13, false, clienteAttivo);
 		ordine2.getPizze().add(margherita);
 		ordine2.getPizze().add(porcini);
+		ordine2.getPizze().add(crostino);
 		ordine2.setFattorino(utenteServiceInstance.findByUsername("fattorino"));
 		ordineServiceInstance.inserisciNuovo(ordine2);
 		
-		Ordine ordine3 = new Ordine("ABC123", LocalDate.now(), 13, false, clienteAttivo);
+		Ordine ordine3 = new Ordine("IOP908", LocalDate.now(), 13, false, clienteAttivo);
 		ordine3.getPizze().add(ultracostosa);
 		ordine3.getPizze().add(porcini);
 		ordine3.setFattorino(utenteServiceInstance.findByUsername("fattorino"));
