@@ -15,7 +15,7 @@ public interface OrdineRepository extends CrudRepository<Ordine, Long>, CustomOr
 	@Query("from Ordine o left join fetch o.pizze left join fetch o.cliente left join fetch o.fattorino where o.id = ?1")
 	Optional<Ordine> findByIdEager(Long id);
 
-	@Query("select sum(o.costoTotale) from Ordine o where o.data between ?1 and ?2")
+	@Query("select coalesce(sum(o.costoTotale), 0) from Ordine o where o.data between ?1 and ?2")
 	Integer ricaviTotaliTra(LocalDate dataInizio, LocalDate dataFine);
 
 	Integer countByDataBetween(LocalDate dataInizio, LocalDate dataFine);

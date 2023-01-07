@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.prova.pizzastoreBE.dto.UtenteDTO;
 import it.prova.pizzastoreBE.model.Utente;
 import it.prova.pizzastoreBE.service.utente.UtenteService;
 
@@ -33,5 +34,10 @@ public class UtenteController {
 				.collect(Collectors.toList());
 
 		return ResponseEntity.ok(ruoli);
+	}
+	
+	@GetMapping("/fattorini")
+	public List<UtenteDTO> findAllFattorini() {
+		return UtenteDTO.createUtenteDTOListFromModelList(utenteService.getAllFattorini());
 	}
 }

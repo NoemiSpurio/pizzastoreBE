@@ -2,17 +2,20 @@ package it.prova.pizzastoreBE.dto;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import it.prova.pizzastoreBE.model.Ruolo;
 import it.prova.pizzastoreBE.model.StatoUtente;
 import it.prova.pizzastoreBE.model.Utente;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UtenteDTO {
 
 	private Long id;
@@ -142,5 +145,12 @@ public class UtenteDTO {
 					.toArray(new Long[] {});
 
 		return result;
+	}
+	
+	public static List<UtenteDTO> createUtenteDTOListFromModelList(List<Utente> modelListInput) {
+		return modelListInput.stream().map(utenteEntity -> {
+			UtenteDTO result = UtenteDTO.buildUtenteDTOFromModel(utenteEntity);
+			return result;
+		}).collect(Collectors.toList());
 	}
 }

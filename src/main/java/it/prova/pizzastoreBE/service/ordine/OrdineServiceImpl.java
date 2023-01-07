@@ -2,6 +2,7 @@ package it.prova.pizzastoreBE.service.ordine;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,10 +44,8 @@ public class OrdineServiceImpl implements OrdineService {
 	@Override
 	@Transactional
 	public void inserisciNuovo(Ordine ordineInstance) {
-		ordineInstance.setCostoTotale(0);
-		for (Pizza pizzaElement : ordineInstance.getPizze()) {
-			ordineInstance.setCostoTotale(ordineInstance.getCostoTotale() + pizzaElement.getPrezzoBase());
-		}
+		int costoTotale = ordineInstance.getPizze().stream().collect(Collectors.summingInt(Pizza::getPrezzoBase));
+		ordineInstance.setCostoTotale(costoTotale);
 		ordineInstance.setClosed(false);
 		ordineRepository.save(ordineInstance);
 	}

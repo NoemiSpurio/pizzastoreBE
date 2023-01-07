@@ -8,22 +8,24 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import it.prova.pizzastoreBE.model.Ordine;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OrdineDTO {
 
 	private Long id;
 
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate data;
 
 	private Boolean closed;
 	@NotBlank(message = "{codice.notblank}")
 	private String codice;
-	@NotNull(message = "{costo.notnull}")
+	
 	private Integer costo;
 
 	private List<PizzaDTO> pizze;
