@@ -25,4 +25,7 @@ public interface OrdineRepository extends CrudRepository<Ordine, Long>, CustomOr
 
 	@Query("select distinct c from Ordine o join o.cliente c where c is not null and o.costoTotale > 100 and o.data between ?1 and ?2")
 	List<Cliente> findAllClientiVirtuosiBetween(LocalDate dataInizio, LocalDate dataFine);
+	
+	@Query("from Ordine o join o.fattorino f where o.closed = false and f.id =?1")
+	List<Ordine> findAllOrdiniApertiPerFattorino(Long idFattorino);
 }

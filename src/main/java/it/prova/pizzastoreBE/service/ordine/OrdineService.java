@@ -31,4 +31,6 @@ public interface OrdineService {
 	public Integer totPizzeOrdinateTra(LocalDate dataInizio, LocalDate dataFine);
 
 	public List<Cliente> clientiVirtuosiTra(LocalDate dataInizio, LocalDate dataFine);
+	
+	public List<Ordine> ordiniPerFattorino(String username);
 }

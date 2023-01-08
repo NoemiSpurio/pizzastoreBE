@@ -11,7 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import it.prova.pizzastoreBE.model.Cliente;
 import it.prova.pizzastoreBE.model.Ordine;
 import it.prova.pizzastoreBE.model.Pizza;
+import it.prova.pizzastoreBE.model.Utente;
 import it.prova.pizzastoreBE.repository.ordine.OrdineRepository;
+import it.prova.pizzastoreBE.repository.utente.UtenteRepository;
+import it.prova.pizzastoreBE.web.api.exception.FattorinoNotFoundException;
 
 @Service
 @Transactional(readOnly = true)
@@ -19,6 +22,8 @@ public class OrdineServiceImpl implements OrdineService {
 
 	@Autowired
 	private OrdineRepository ordineRepository;
+	@Autowired
+	private UtenteRepository utenteRepository;
 	
 	@Override
 	public List<Ordine> listAllOrdini() {
@@ -89,6 +94,15 @@ public class OrdineServiceImpl implements OrdineService {
 	@Override
 	public List<Cliente> clientiVirtuosiTra(LocalDate dataInizio, LocalDate dataFine) {
 		return ordineRepository.findAllClientiVirtuosiBetween(dataInizio, dataFine);
+	}
+
+	@Override
+	public List<Ordine> ordiniPerFattorino(String username) throws RuntimeException {
+		Utente fattorino = utenteRepository.findByUsername(username).orElse(null);
+		if (fattorino == null)
+			throw new FattorinoNotFoundException("Utente Not Found con username: " + username);
+
+		return ordineRepository.findAllOrdiniApertiPerFattorino(fattorino.getId());
 	}
 
 }

@@ -1,5 +1,6 @@
 package it.prova.pizzastoreBE.web.api;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -104,5 +105,10 @@ public class OrdineController {
 	public List<ClienteDTO> clientiVirtuosiTra(@Valid @RequestBody StatisticheDTO dateInput) {
 		return ClienteDTO.createClienteDTOListFromModelList(
 				ordineService.clientiVirtuosiTra(dateInput.getDataInizio(), dateInput.getDataFine()));
+	}
+	
+	@GetMapping("/fattorino")
+	public List<OrdineDTO> ordiniPerFattorino(Principal principal) {
+		return OrdineDTO.createOrdineDTOListFromModelList(ordineService.ordiniPerFattorino(principal.getName()));
 	}
 }
